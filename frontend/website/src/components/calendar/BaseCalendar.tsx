@@ -94,17 +94,17 @@ const BaseCalendar: React.FC<BaseCalendarProps> = ({
               className={clsx("cursor-pointer", classNameCell)}
             >
               <div className="flex flex-col content-center w-full">
-                <div
+                <button
                   className={
                     date === selectedDate
-                      ? "bg-blue-900 text-white rounded-full m-auto w-6 h-6 flex items-center justify-center text-center mb-[2px]"
+                      ? "bg-blue-800 text-white rounded-full m-auto w-6 h-6 flex items-center justify-center text-center mb-[2px] hover:bg-blue-700"
                       : typeCalendar === "BIG_VIEW"
-                      ? "mb-[6px]"
-                      : ""
+                      ? "mb-[2px] hover:bg-gray-200 rounded-full m-auto w-6 h-6"
+                      : "hover:bg-gray-200 rounded-full m-auto w-6 h-6"
                   }
                 >
                   {date}
-                </div>
+                </button>
                 {childrenCell}
               </div>
             </CellCalendar>
