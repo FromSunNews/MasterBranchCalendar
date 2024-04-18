@@ -11,11 +11,11 @@ const CellCalendar: React.FC<CellCalendarProps> = ({
   className,
   onClick,
 }) => {
+  let classDefault = "h-9 flex justify-center";
+  if (!className?.includes("items-start")) classDefault += " items-center";
+
   return (
-    <div
-      className={clsx("h-9 flex items-center justify-center", className)}
-      onClick={onClick}
-    >
+    <div className={clsx(className, classDefault)} onClick={onClick}>
       {children}
     </div>
   );

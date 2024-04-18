@@ -1,6 +1,7 @@
 import React from "react";
 import CellCalendar from "../cell-calendar/CellCalendar";
 import {
+  addDays,
   differenceInDays,
   endOfMonth,
   getDay,
@@ -12,16 +13,31 @@ import { daysOfWeek } from "../../assets/utilities/variable";
 
 interface BaseCalendarProps {
   value?: Date;
+  dateNum?: number;
   onChange?: (value: Date) => void;
   className?: string;
+  classNameCell?: string;
   header?: React.ReactNode;
+  childrenCell?: React.ReactNode;
+  typeCalendar?: "SMALL_VIEW" | "BIG_VIEW";
 }
 
 const BaseCalendar: React.FC<BaseCalendarProps> = ({
   value = new Date(),
+  dateNum,
+  onChange,
   className,
+  classNameCell,
   header,
+  childrenCell,
+  typeCalendar,
 }) => {
+  const [selectedDate, setSelectedDate] = React.useState(dateNum);
+
+  React.useEffect(() => {
+    setSelectedDate(dateNum);
+  }, [dateNum]);
+
   const startDate = startOfMonth(value);
   const endDate = endOfMonth(value);
   const numDaysInMonth = differenceInDays(endDate, startDate) + 1;
@@ -34,6 +50,12 @@ const BaseCalendar: React.FC<BaseCalendarProps> = ({
 
   const prefixDaysInMonth = getDay(startDate);
   const suffixDaysInMonth = 6 - getDay(endDate);
+
+  const handleOnChange = (date: number) => {
+    console.log("🚀 ~ handleOnChange ~ date:", date);
+    setSelectedDate(date);
+    onChange && onChange(addDays(startDate, date - 1)); // date - 1 because startDate is calculated 1 day
+  };
 
   return (
     <div className={clsx("w-full", className)}>
@@ -53,7 +75,10 @@ const BaseCalendar: React.FC<BaseCalendarProps> = ({
         {Array.from({ length: prefixDaysInMonth }).map((x, index, arr) => {
           const date = numDaysInPrevMonth - (arr.length - (index + 1));
           return (
-            <CellCalendar key={`blank-cell-${index}`} className="text-gray-400">
+            <CellCalendar
+              key={`blank-cell-${index}`}
+              className={clsx("text-gray-400", classNameCell)}
+            >
               {date}
             </CellCalendar>
           );
@@ -63,9 +88,24 @@ const BaseCalendar: React.FC<BaseCalendarProps> = ({
         {Array.from({ length: numDaysInMonth }).map((x, index) => {
           const date = index + 1;
           return (
-            <CellCalendar key={index}>
-              <div className="cursor-pointer bg-blue-900 text-white rounded-full w-8 h-8 flex items-center justify-center">
-                <div>{date}</div>
+            <CellCalendar
+              key={date}
+              onClick={() => handleOnChange(date)}
+              className={clsx("cursor-pointer", classNameCell)}
+            >
+              <div className="flex flex-col content-center w-full">
+                <div
+                  className={
+                    date === selectedDate
+                      ? "bg-blue-900 text-white rounded-full m-auto w-6 h-6 flex items-center justify-center text-center mb-[2px]"
+                      : typeCalendar === "BIG_VIEW"
+                      ? "mb-[6px]"
+                      : ""
+                  }
+                >
+                  {date}
+                </div>
+                {childrenCell}
               </div>
             </CellCalendar>
           );
@@ -75,7 +115,10 @@ const BaseCalendar: React.FC<BaseCalendarProps> = ({
         {Array.from({ length: suffixDaysInMonth }).map((x, index) => {
           const date = index + 1;
           return (
-            <CellCalendar key={`blank-cell-${index}`} className="text-gray-400">
+            <CellCalendar
+              key={`blank-cell-${index}`}
+              className={clsx("text-gray-400", classNameCell)}
+            >
               {date}
             </CellCalendar>
           );

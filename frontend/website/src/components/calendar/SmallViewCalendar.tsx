@@ -1,10 +1,10 @@
 import React from "react";
 import BaseCalendar from "./BaseCalendar";
 import CellCalendar from "../cell-calendar/CellCalendar";
-import { add, format, sub } from "date-fns";
+import { add, format, getDate, sub } from "date-fns";
 
 const SmallViewCalendar = () => {
-  const [currentDate, setCurrentDate] = React.useState(new Date("2024-03-13"));
+  const [currentDate, setCurrentDate] = React.useState(new Date());
 
   const handlePrevMonth = () => setCurrentDate(sub(currentDate, { months: 1 }));
   const handleFollowingMonth = () =>
@@ -14,6 +14,7 @@ const SmallViewCalendar = () => {
     <>
       <BaseCalendar
         value={currentDate}
+        dateNum={getDate(currentDate)}
         onChange={setCurrentDate}
         header={
           <div className="col-span-7 grid grid-cols-7">
@@ -23,7 +24,7 @@ const SmallViewCalendar = () => {
                 navigate_before
               </span>
             </CellCalendar>
-            <CellCalendar className="col-span-3 font-extrabold text-blue-800 text-lg">
+            <CellCalendar className="col-span-3 font-extrabold text-blue-800 text-base">
               {format(currentDate, "LLLL yyyy")}
             </CellCalendar>
             <CellCalendar
@@ -37,6 +38,8 @@ const SmallViewCalendar = () => {
             <CellCalendar></CellCalendar>
           </div>
         }
+        classNameCell="flex items-center justify-center"
+        typeCalendar={"SMALL_VIEW"}
       />
     </>
   );
