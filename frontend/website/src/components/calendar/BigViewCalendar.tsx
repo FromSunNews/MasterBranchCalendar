@@ -56,7 +56,7 @@ const BigViewCalendar = () => {
                   isThisMonth(currentDate)
                     ? "bg-blue-800 text-white"
                     : "border-blue-800 text-blue-800"
-                } mt-[2px] h-8 px-3 border rounded-full flex justify-center items-center cursor-pointer hover:bg-blue-800 hover:text-white`}
+                } mt-[2px] h-8 px-3 border rounded-full flex justify-center items-center cursor-pointer hover:bg-blue-700 hover:text-white`}
                 onClick={handleToDayClick}
               >
                 <div>Today</div>
@@ -85,11 +85,11 @@ const BigViewCalendar = () => {
               </CellCalendar>
             </div>
 
-            <div className="flex justify-center content-center bg-blue-800 px-3 rounded-full cursor-pointer h-8">
+            <div className="flex justify-center content-center bg-blue-800 hover:bg-blue-700 px-3 rounded-full cursor-pointer h-8">
               <select
                 defaultValue={selectedMonth}
                 onChange={(e) => handleSelectMonth(parseInt(e.target.value))}
-                className="rounded-full bg-blue-800 px-[4px] text-white focus:outline-none focus:shadow-none cursor-pointer"
+                className="rounded-full bg-transparent px-[4px] text-white focus:outline-none focus:shadow-none cursor-pointer"
               >
                 {monthsOfYear.map((month: string, index: number) => {
                   return (
