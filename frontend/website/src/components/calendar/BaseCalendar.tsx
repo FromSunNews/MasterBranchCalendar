@@ -72,7 +72,7 @@ const BaseCalendar: React.FC<BaseCalendarProps> = ({
         ))}
 
         {/*prefix days in month */}
-        {Array.from({ length: prefixDaysInMonth }).map((x, index, arr) => {
+        {Array.from({ length: prefixDaysInMonth }).map((_x, index, arr) => {
           const date = numDaysInPrevMonth - (arr.length - (index + 1));
           return (
             <CellCalendar
@@ -85,7 +85,7 @@ const BaseCalendar: React.FC<BaseCalendarProps> = ({
         })}
 
         {/* main days in month*/}
-        {Array.from({ length: numDaysInMonth }).map((x, index) => {
+        {Array.from({ length: numDaysInMonth }).map((_x, index) => {
           const date = index + 1;
           return (
             <CellCalendar
@@ -112,7 +112,7 @@ const BaseCalendar: React.FC<BaseCalendarProps> = ({
         })}
 
         {/*suffix days in month */}
-        {Array.from({ length: suffixDaysInMonth }).map((x, index) => {
+        {Array.from({ length: suffixDaysInMonth }).map((_x, index) => {
           const date = index + 1;
           return (
             <CellCalendar
