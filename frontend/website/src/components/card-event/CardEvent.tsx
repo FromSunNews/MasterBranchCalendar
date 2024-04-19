@@ -39,10 +39,7 @@ const CardEvent: React.FC<CardEventProps> = ({
 
   return (
     <div
-      className={clsx(
-        "p-2 border rounded-lg border-l-[7px] py-3 mt-4 shadow-md",
-        `border-[${background_color}]`
-      )}
+      className={"p-2 border rounded-lg border-l-[7px] py-3 mt-4 shadow-md"}
       style={{
         borderLeftColor: primary_color,
       }}
@@ -88,9 +85,9 @@ const CardEvent: React.FC<CardEventProps> = ({
           {type === "BOOKING_CLIENT" && (
             <button
               onClick={() => window.open(meeting_url, "_blank")}
-              className="flex content-center justify-center h-[45px] w-[45px] bg-blue-600 hover:bg-blue-700 rounded-full"
+              className="flex content-center justify-center h-[40px] w-[40px] bg-blue-600 hover:bg-blue-700 rounded-full"
             >
-              <span className="material-icons-outlined text-white mt-[10px]">
+              <span className="material-icons-outlined text-white mt-[7px]">
                 videocam
               </span>
             </button>
@@ -99,7 +96,7 @@ const CardEvent: React.FC<CardEventProps> = ({
       </div>
 
       {type === "BOOKING_CLIENT" && (
-        <div className="flex flex-row content-center mt-2">
+        <div className="flex flex-row content-center mt-1">
           <img
             src={Avatar}
             alt=""

@@ -8,7 +8,10 @@ import {
   selectCurrentNumberDay,
   updateCurrentGlobalState,
 } from "../../redux/global/global_slice";
-import { getTotalEventAPI } from "../../redux/event/event_slice";
+import {
+  getTotalEventAPI,
+  updateUpcomingEvent,
+} from "../../redux/event/event_slice";
 
 const BigViewCalendar = () => {
   const currentDate = useSelector(selectCurrentDate);
@@ -65,12 +68,25 @@ const BigViewCalendar = () => {
     current_date_selected &&
       dispatch(getTotalEventAPI({ date: current_date_selected }) as any);
   };
+
+  const handleOnChange = async (date: Date) => {
+    console.log("🚀 ~ handleOnChange ~ date:", date);
+    dispatch(
+      updateCurrentGlobalState({
+        current_date_selected: date,
+        number_day_in_month_selected: getMonth(date),
+      })
+    );
+    dispatch(updateUpcomingEvent({ date }));
+  };
+
   return (
     <div className="sm:col-span-6 md:col-span-8 col-span-12 h-30 border border-gray-200 rounded-md">
       <BaseCalendar
         typeCalendar="BIG_VIEW"
         value={currentDate}
         dateNum={getDate(currentDate)}
+        onChange={(date: Date) => handleOnChange(date)}
         header={
           <div className="col-span-7 flex flex-row content-center justify-between px-10 py-4">
             <div className="flex flex-row content-center flex-grow">

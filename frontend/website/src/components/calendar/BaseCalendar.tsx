@@ -94,18 +94,14 @@ const BaseCalendar: React.FC<BaseCalendarProps> = ({
             <CellCalendar key={date} className={classNameCell}>
               <div className="flex flex-col content-center w-full relative">
                 <button
-                  onClick={() =>
-                    typeCalendar === "SMALL_VIEW" && handleOnChange(date)
-                  } // only small view have lick event
+                  onClick={() => handleOnChange(date)}
                   className={clsx(
-                    typeCalendar === "SMALL_VIEW"
-                      ? "cursor-pointer"
-                      : "cursor-default",
+                    "cursor-pointer",
                     date === selectedDate
-                      ? "bg-blue-600 text-white rounded-full m-auto w-6 h-6 flex items-center justify-center text-center mb-[2px] hover:bg-blue-700"
+                      ? "bg-blue-600 text-white rounded-full m-auto w-7 h-7 flex items-center justify-center text-center mb-[2px] hover:bg-blue-700"
                       : typeCalendar === "BIG_VIEW"
-                      ? "mb-[2px] rounded-full m-auto w-6 h-6"
-                      : "hover:bg-gray-200 rounded-full m-auto w-6 h-6"
+                      ? "mb-[2px] hover:bg-gray-200 rounded-full m-auto w-7 h-7"
+                      : "hover:bg-gray-200 rounded-full m-auto w-7 h-7"
                   )}
                 >
                   {date}
@@ -132,7 +128,7 @@ const BaseCalendar: React.FC<BaseCalendarProps> = ({
                         );
                       else
                         return (
-                          <div className="z-10 cursor-pointer text-left text-blue-600 hover:text-blue-700 font-semibold underline text-[10px] mt-[-4px] ms-1">
+                          <div className="truncate z-10 cursor-pointer text-left text-blue-600 hover:text-blue-700 font-semibold underline text-[10px] mt-[-4px] ms-1">
                             {"View " +
                               (totalUpcomingEvents[index].length - 2) +
                               " more"}
