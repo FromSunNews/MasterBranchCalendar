@@ -1,11 +1,9 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { EventRequest } from '../../api/common/request/event.request';
-import { raw_data } from '../../assets/data/raw_data';
-import { add, differenceInDays, endOfMonth, getDate, getDay, getMonth, getYear, startOfMonth } from 'date-fns';
 import { EventState } from '../interfaces/event_state.interface';
 import { AppGlobalState } from '../interfaces/app_global_state.interface';
-import { EventResponse } from '../../api/common/response/event.response';
 import EventService from '../../api/event/event.api';
+import { getDate } from 'date-fns';
 
 // Khởi tạo giá trị một giá trị của Slice trong Redux
 const initialState: EventState = {
