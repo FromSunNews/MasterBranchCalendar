@@ -1,7 +1,6 @@
 import { format } from "date-fns";
 import React from "react";
 import Avatar from "../../assets/images/avatar.jpg";
-import clsx from "clsx";
 
 interface CardEventProps {
   title: string;
@@ -29,7 +28,6 @@ const CardEvent: React.FC<CardEventProps> = ({
   recurring,
   recurring_pattern,
   primary_color,
-  background_color,
   meeting_url,
   profile_client_url,
 }) => {

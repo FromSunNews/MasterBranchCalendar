@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import qs from 'qs';
+import { getAPIRoot } from "../../assets/utilities/constants";
 
 export interface ApiResponse<T> {
   isSuccess: boolean;
@@ -11,7 +12,7 @@ const api = axios.create();
 
 api.interceptors.request.use(
   function (config) {
-    config.baseURL = process.env.API_ROOT;
+    config.baseURL = getAPIRoot();
     return config;
   },
   function (error) {
