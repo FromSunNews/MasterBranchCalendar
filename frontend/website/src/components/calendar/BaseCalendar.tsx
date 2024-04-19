@@ -10,6 +10,12 @@ import {
 } from "date-fns";
 import clsx from "clsx";
 import { daysOfWeek } from "../../assets/utilities/variable";
+import {
+  getTotalEventAPI,
+  selectTotalUpcomingEvents,
+} from "../../redux/event/event_slice";
+import { useSelector } from "react-redux";
+import { EventResponse } from "../../api/common/response/event.response";
 
 interface BaseCalendarProps {
   value?: Date;
@@ -33,6 +39,7 @@ const BaseCalendar: React.FC<BaseCalendarProps> = ({
   typeCalendar,
 }) => {
   const [selectedDate, setSelectedDate] = React.useState(dateNum);
+  const totalUpcomingEvents = useSelector(selectTotalUpcomingEvents);
 
   React.useEffect(() => {
     setSelectedDate(dateNum);
@@ -88,24 +95,55 @@ const BaseCalendar: React.FC<BaseCalendarProps> = ({
         {Array.from({ length: numDaysInMonth }).map((_x, index) => {
           const date = index + 1;
           return (
-            <CellCalendar
-              key={date}
-              onClick={() => handleOnChange(date)}
-              className={clsx("cursor-pointer", classNameCell)}
-            >
-              <div className="flex flex-col content-center w-full">
+            <CellCalendar key={date} className={classNameCell}>
+              <div className="flex flex-col content-center w-full relative">
                 <button
-                  className={
+                  onClick={() =>
+                    typeCalendar === "SMALL_VIEW" && handleOnChange(date)
+                  } // only small view have lick event
+                  className={clsx(
+                    typeCalendar === "SMALL_VIEW"
+                      ? "cursor-pointer"
+                      : "cursor-default",
                     date === selectedDate
-                      ? "bg-blue-800 text-white rounded-full m-auto w-6 h-6 flex items-center justify-center text-center mb-[2px] hover:bg-blue-700"
+                      ? "bg-blue-600 text-white rounded-full m-auto w-6 h-6 flex items-center justify-center text-center mb-[2px] hover:bg-blue-700"
                       : typeCalendar === "BIG_VIEW"
-                      ? "mb-[2px] hover:bg-gray-200 rounded-full m-auto w-6 h-6"
+                      ? "mb-[2px] rounded-full m-auto w-6 h-6"
                       : "hover:bg-gray-200 rounded-full m-auto w-6 h-6"
-                  }
+                  )}
                 >
                   {date}
                 </button>
-                {childrenCell}
+                {/* {childrenCell} */}
+                {typeCalendar === "BIG_VIEW" &&
+                  totalUpcomingEvents[index] &&
+                  totalUpcomingEvents[index].map(
+                    (event: EventResponse, small_index: number) => {
+                      if (small_index <= 1)
+                        return (
+                          <div
+                            onClick={() =>
+                              window.open(event.meeting_url, "_blank")
+                            }
+                            className="relative z-10 cursor-pointer text-left truncate px-[2px] w-full mb-1 border-l-[4px] border-l-blue-600 rounded-sm text-[10px] bg-slate-400 hover:bg-slate-300 hover:border-l-blue-600"
+                            style={{
+                              borderLeftColor: event.primary_color,
+                              backgroundColor: event.background_color,
+                            }}
+                          >
+                            {event.title}
+                          </div>
+                        );
+                      else
+                        return (
+                          <div className="z-10 cursor-pointer text-left text-blue-600 hover:text-blue-700 font-semibold underline text-[10px] mt-[-4px] ms-1">
+                            {"View " +
+                              (totalUpcomingEvents[index].length - 2) +
+                              " more"}
+                          </div>
+                        );
+                    }
+                  )}
               </div>
             </CellCalendar>
           );
