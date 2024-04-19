@@ -19,10 +19,11 @@ export const handleNewData = (newData: EventResponse[]) => {
 const app: Application = express();
 const port = env.APP_PORT || 7500;
 
+app.use(cors({ origin: '*' }))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/v1', cors(), apiV1);
+app.use('/v1', apiV1);
 
 app.listen(port, async () => {
   console.log(`Server is Fire at http://localhost:${port}`);
