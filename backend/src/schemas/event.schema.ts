@@ -1,12 +1,12 @@
 import Joi from 'joi'
 
 const getTotalUpcomingEventSchema = Joi.object({
-  date: Joi.date().required().message('Date is required!')
+  date: Joi.date().required()
 })
 
 const createEvent = Joi.object({
   title: Joi.string().required(),
-  type: Joi.string().valid('BOOKING_CLIENT', 'WEBINAR_EVENT').required(),
+  type: Joi.string().valid("BOOKING_CLIENT", "WEBINAR_EVENT").required(),
   start_time: Joi.string().isoDate().required(),
   start_timestamp: Joi.number().required(),
   end_time: Joi.string().isoDate().required(),
@@ -14,7 +14,7 @@ const createEvent = Joi.object({
   description: Joi.string().required(),
   location: Joi.string(),
   recurring: Joi.boolean().required(),
-  recurring_pattern: Joi.string().valid('DAYLY', 'WEEKLY', 'MONTHLY', 'YEARLY'),
+  recurring_pattern: Joi.string().valid("DAYLY", "WEEKLY", "MONTHLY", "YEARLY"),
   primary_color: Joi.string().required(),
   background_color: Joi.string().required(),
   meeting_url: Joi.string(),
