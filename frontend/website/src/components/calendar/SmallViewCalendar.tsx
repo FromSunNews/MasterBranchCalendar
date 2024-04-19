@@ -1,4 +1,3 @@
-import React from "react";
 import BaseCalendar from "./BaseCalendar";
 import CellCalendar from "../cell-calendar/CellCalendar";
 import { add, format, getDate, getMonth, sub } from "date-fns";
@@ -30,7 +29,7 @@ const SmallViewCalendar = () => {
         number_day_in_month_selected: getMonth(date),
       })
     );
-    dispatch(getTotalEventAPI({ date }));
+    dispatch(getTotalEventAPI({ date }) as any);
   };
 
   const handleOnChange = async (date: Date) => {

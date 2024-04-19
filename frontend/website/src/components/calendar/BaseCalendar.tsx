@@ -10,10 +10,7 @@ import {
 } from "date-fns";
 import clsx from "clsx";
 import { daysOfWeek } from "../../assets/utilities/variable";
-import {
-  getTotalEventAPI,
-  selectTotalUpcomingEvents,
-} from "../../redux/event/event_slice";
+import { selectTotalUpcomingEvents } from "../../redux/event/event_slice";
 import { useSelector } from "react-redux";
 import { EventResponse } from "../../api/common/response/event.response";
 
@@ -35,7 +32,6 @@ const BaseCalendar: React.FC<BaseCalendarProps> = ({
   className,
   classNameCell,
   header,
-  childrenCell,
   typeCalendar,
 }) => {
   const [selectedDate, setSelectedDate] = React.useState(dateNum);

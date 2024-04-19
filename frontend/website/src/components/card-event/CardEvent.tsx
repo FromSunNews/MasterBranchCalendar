@@ -32,7 +32,6 @@ const CardEvent: React.FC<CardEventProps> = ({
   background_color,
   meeting_url,
   profile_client_url,
-  profile_client_image,
 }) => {
   const dateFormatStart = format(new Date(start_time), "hh:mm a");
   const dateFormatEnd = format(new Date(end_time), "hh:mm a");

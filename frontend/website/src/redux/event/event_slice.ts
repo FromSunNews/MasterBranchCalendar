@@ -1,16 +1,17 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import EventService from '../../api/event/event.api';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { EventRequest } from '../../api/common/request/event.request';
 import { raw_data } from '../../assets/data/raw_data';
 import { add, differenceInDays, endOfMonth, getDate, getDay, getMonth, getYear, startOfMonth } from 'date-fns';
+import { EventState } from '../interfaces/event_state.interface';
+import { AppGlobalState } from '../interfaces/app_global_state.interface';
+import { EventResponse } from '../../api/common/response/event.response';
 
 // Khởi tạo giá trị một giá trị của Slice trong Redux
-const initialState = {
+const initialState: EventState = {
   upcomingEvents: [],
   totalUpcomingEvents: [],
   isLoading: false
 }
-
 
 export const getTotalEventAPI = createAsyncThunk(
   'event/getTotalEventAPI',
@@ -25,7 +26,7 @@ export const getTotalEventAPI = createAsyncThunk(
     Array.from({ length: numDaysInMonth }).map((_x, index) => {
       dateInMonth.push(add(startDate, { days: index }))
     })
-    const totalUpcomingEvents: any[] = []
+    const totalUpcomingEvents: EventResponse[][] = []
     dateInMonth.map(item => {
       const fullDate = item;
 
@@ -77,7 +78,7 @@ export const getTotalEventAPI = createAsyncThunk(
     return {
       totalUpcomingEvents,
       date: data.date
-    };
+    } as any;
   }
 )
 
@@ -88,18 +89,18 @@ export const eventSlice = createSlice({
   reducers: {
     // Phương: Lưu ý luôn là ở đây cần cặp ngoặc nhọn cho function trong reducer cho dù code bên trong chỉ có 1 dòng, đây là rule của Redux
     // Phương: https:// Phương:redux-toolkit.js.org/usage/immer-reducers#mutating-and-returning-state
-    updateLoadingState: (state, action) => {
+    updateLoadingState: (state: EventState, action: PayloadAction<any>) => {
       const isLoading = action.payload
       state.isLoading = isLoading
     },
-    updateUpcomingEvent: (state, action) => {
+    updateUpcomingEvent: (state: EventState, action: PayloadAction<any>) => {
       const date = getDate(action.payload.date)
       console.log("🚀 ~ date:", date)
       state.upcomingEvents = state.totalUpcomingEvents.length === 0 ? [] : state.totalUpcomingEvents[date - 1]
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(getTotalEventAPI.fulfilled, (state, action) => {
+    builder.addCase(getTotalEventAPI.fulfilled, (state: EventState, action: PayloadAction<any>) => {
       const { totalUpcomingEvents, date } = action.payload
       console.log("🚀 ~ builder.addCase ~ upcomingEvents:", totalUpcomingEvents)
       state.totalUpcomingEvents = totalUpcomingEvents
@@ -117,15 +118,15 @@ export const {
 // Phương: Selectors: mục đích là dành cho các components bên dưới gọi bằng useSelector() tới nó
 // Phương: để lấy dữ liệu từ trong redux store ra sử dụng
 
-export const selectUpcomingEvents = (state: any) => {
+export const selectUpcomingEvents = (state: AppGlobalState) => {
   return state.event.upcomingEvents
 }
 
-export const selectTotalUpcomingEvents = (state: any) => {
+export const selectTotalUpcomingEvents = (state: AppGlobalState) => {
   return state.event.totalUpcomingEvents
 }
 
-export const selectLoadingEvents = (state: any) => {
+export const selectLoadingEvents = (state: AppGlobalState) => {
   return state.event.isLoading
 }
 
