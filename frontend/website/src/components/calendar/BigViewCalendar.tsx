@@ -1,4 +1,3 @@
-import React from "react";
 import BaseCalendar from "./BaseCalendar";
 import CellCalendar from "../cell-calendar/CellCalendar";
 import { add, format, getDate, getMonth, isThisMonth, sub } from "date-fns";
@@ -9,10 +8,7 @@ import {
   selectCurrentNumberDay,
   updateCurrentGlobalState,
 } from "../../redux/global/global_slice";
-import {
-  getTotalEventAPI,
-  updateUpcomingEvent,
-} from "../../redux/event/event_slice";
+import { getTotalEventAPI } from "../../redux/event/event_slice";
 
 const BigViewCalendar = () => {
   const currentDate = useSelector(selectCurrentDate);
@@ -34,7 +30,7 @@ const BigViewCalendar = () => {
         number_day_in_month_selected: getMonth(date),
       })
     );
-    dispatch(getTotalEventAPI({ date }));
+    dispatch(getTotalEventAPI({ date }) as any);
   };
 
   const handleToDayClick = () => {
@@ -45,7 +41,7 @@ const BigViewCalendar = () => {
       })
     );
 
-    dispatch(getTotalEventAPI({ date: new Date() }));
+    dispatch(getTotalEventAPI({ date: new Date() }) as any);
   };
 
   const handleSelectMonth = (value: number) => {
@@ -66,7 +62,8 @@ const BigViewCalendar = () => {
       })
     );
 
-    dispatch(getTotalEventAPI({ date: current_date_selected }));
+    current_date_selected &&
+      dispatch(getTotalEventAPI({ date: current_date_selected }) as any);
   };
   return (
     <div className="sm:col-span-6 md:col-span-8 col-span-12 h-30 border border-gray-200 rounded-md">

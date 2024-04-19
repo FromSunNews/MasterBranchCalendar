@@ -8,7 +8,7 @@ import { getTotalEventAPI } from "./redux/event/event_slice";
 function App() {
   const dispatch = useDispatch();
   React.useEffect(() => {
-    dispatch(getTotalEventAPI({ date: new Date() }));
+    dispatch(getTotalEventAPI({ date: new Date() }) as any);
   }, []);
   return (
     <div className="container m-auto grid grid-cols-12 w-screen py-2 gap-3">

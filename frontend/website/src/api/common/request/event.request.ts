@@ -1,3 +1,3 @@
 export interface EventRequest {
-  date: string;
+  date: Date;
 }
