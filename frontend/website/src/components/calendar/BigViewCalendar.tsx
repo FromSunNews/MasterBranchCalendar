@@ -3,50 +3,77 @@ import BaseCalendar from "./BaseCalendar";
 import CellCalendar from "../cell-calendar/CellCalendar";
 import { add, format, getDate, getMonth, isThisMonth, sub } from "date-fns";
 import { monthsOfYear } from "../../assets/utilities/variable";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectCurrentDate,
+  selectCurrentNumberDay,
+  updateCurrentGlobalState,
+} from "../../redux/global/global_slice";
+import {
+  getTotalEventAPI,
+  updateUpcomingEvent,
+} from "../../redux/event/event_slice";
 
 const BigViewCalendar = () => {
-  const [currentDate, setCurrentDate] = React.useState(new Date());
-  const [selectedMonth, setSelectedMonth] = React.useState(
-    getMonth(new Date())
-  );
+  const currentDate = useSelector(selectCurrentDate);
+  const selectedMonth = useSelector(selectCurrentNumberDay);
   console.log("🚀 ~ BigViewCalendar ~ selectedMonth:", selectedMonth);
+  const dispatch = useDispatch();
 
   const handleNavigateMonth = (typeNavigate: string) => {
+    let date;
     if (typeNavigate === "BEFORE") {
-      const previousMonthDate = sub(currentDate, { months: 1 });
-      setCurrentDate(previousMonthDate);
-      setSelectedMonth(getMonth(previousMonthDate));
+      date = sub(currentDate, { months: 1 });
     } else {
-      const nextMonthDate = add(currentDate, { months: 1 });
-      setCurrentDate(nextMonthDate);
-      setSelectedMonth(getMonth(nextMonthDate));
+      date = add(currentDate, { months: 1 });
     }
+
+    dispatch(
+      updateCurrentGlobalState({
+        current_date_selected: date,
+        number_day_in_month_selected: getMonth(date),
+      })
+    );
+    dispatch(getTotalEventAPI({ date }));
   };
 
   const handleToDayClick = () => {
-    setCurrentDate(new Date());
-    setSelectedMonth(getMonth(new Date()));
+    dispatch(
+      updateCurrentGlobalState({
+        current_date_selected: new Date(),
+        number_day_in_month_selected: getMonth(new Date()),
+      })
+    );
+
+    dispatch(getTotalEventAPI({ date: new Date() }));
   };
 
   const handleSelectMonth = (value: number) => {
-    setSelectedMonth(value);
+    let current_date_selected;
     if (getMonth(currentDate) > value) {
-      setCurrentDate(
-        sub(currentDate, { months: Math.abs(getMonth(currentDate) - value) })
-      );
+      current_date_selected = sub(currentDate, {
+        months: Math.abs(getMonth(currentDate) - value),
+      });
     } else if (getMonth(currentDate) < value) {
-      setCurrentDate(
-        add(currentDate, { months: Math.abs(getMonth(currentDate) - value) })
-      );
+      current_date_selected = add(currentDate, {
+        months: Math.abs(getMonth(currentDate) - value),
+      });
     }
+    dispatch(
+      updateCurrentGlobalState({
+        current_date_selected,
+        number_day_in_month_selected: value,
+      })
+    );
+
+    dispatch(getTotalEventAPI({ date: current_date_selected }));
   };
   return (
-    <>
+    <div className="sm:col-span-6 md:col-span-8 col-span-12 h-30 border border-gray-200 rounded-md">
       <BaseCalendar
         typeCalendar="BIG_VIEW"
         value={currentDate}
         dateNum={getDate(currentDate)}
-        onChange={setCurrentDate}
         header={
           <div className="col-span-7 flex flex-row content-center justify-between px-10 py-4">
             <div className="flex flex-row content-center flex-grow">
@@ -54,8 +81,8 @@ const BigViewCalendar = () => {
                 className={`${
                   getDate(currentDate) === getDate(new Date()) &&
                   isThisMonth(currentDate)
-                    ? "bg-blue-800 text-white"
-                    : "border-blue-800 text-blue-800"
+                    ? "bg-blue-600 text-white"
+                    : "border-blue-600 text-blue-600"
                 } mt-[2px] h-8 px-3 border rounded-full flex justify-center items-center cursor-pointer hover:bg-blue-700 hover:text-white`}
                 onClick={handleToDayClick}
               >
@@ -80,14 +107,13 @@ const BigViewCalendar = () => {
                 </span>
               </CellCalendar>
 
-              <CellCalendar className="col-span-3 font-extrabold text-blue-800 text-lg mx-2">
+              <CellCalendar className="col-span-3 font-extrabold text-blue-600 text-lg mx-2">
                 {format(currentDate, "LLLL yyyy")}
               </CellCalendar>
             </div>
 
-            <div className="flex justify-center content-center bg-blue-800 hover:bg-blue-700 px-3 rounded-full cursor-pointer h-8">
+            <div className="flex justify-center content-center bg-blue-600 hover:bg-blue-700 px-3 rounded-full cursor-pointer h-8">
               <select
-                defaultValue={selectedMonth}
                 onChange={(e) => handleSelectMonth(parseInt(e.target.value))}
                 className="rounded-full bg-transparent px-[4px] text-white focus:outline-none focus:shadow-none cursor-pointer"
               >
@@ -109,24 +135,9 @@ const BigViewCalendar = () => {
             <CellCalendar></CellCalendar>
           </div>
         }
-        classNameCell={"border h-[100px] w-full items-start pt-1"}
-        childrenCell={
-          <div>
-            <div className="text-left truncate px-[2px] w-full mb-1 border-l-[4px] border-l-blue-800 rounded-sm text-[10px] bg-slate-400">
-              First session 123 with
-            </div>
-
-            <div className=" text-left truncate px-[2px] w-full mb-1 border-l-[4px] border-l-blue-800 rounded-sm text-[10px] bg-slate-400">
-              First
-            </div>
-
-            <div className="text-left text-blue-800 underline text-[10px] mt-[-4px] ms-1">
-              2 more
-            </div>
-          </div>
-        }
+        classNameCell={"border h-[100px] w-full items-start pt-1 px-1"}
       />
-    </>
+    </div>
   );
 };
 
