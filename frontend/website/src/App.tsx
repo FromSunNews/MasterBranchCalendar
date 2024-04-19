@@ -4,6 +4,7 @@ import UpcomingEvent from "./components/upcoming-event/UpcomingEvent";
 import { useDispatch } from "react-redux";
 import React from "react";
 import { getTotalEventAPI } from "./redux/event/event_slice";
+import ModalDelete from "./components/modal/ModalDelete";
 
 function App() {
   const dispatch = useDispatch();
@@ -17,6 +18,8 @@ function App() {
         <UpcomingEvent />
       </div>
       <BigViewCalendar />
+
+      <ModalDelete />
     </div>
   );
 }

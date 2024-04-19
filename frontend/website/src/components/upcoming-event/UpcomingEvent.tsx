@@ -40,26 +40,29 @@ function UpcomingEvent() {
         </div>
       </div>
 
-      {upcomingEvents.map((event: EventResponse) => {
-        return (
-          <CardEvent
-            key={event.id}
-            title={event.title}
-            type={event.type}
-            start_time={event.start_time}
-            end_time={event.end_time}
-            description={event.description}
-            location={event.location}
-            recurring={event.recurring}
-            recurring_pattern={event.recurring_pattern}
-            primary_color={event.primary_color}
-            background_color={event.background_color}
-            meeting_url={event.meeting_url}
-            profile_client_url={event.profile_client_url}
-            profile_client_image={event.profile_client_image}
-          />
-        );
-      })}
+      {upcomingEvents?.length
+        ? upcomingEvents.map((event: EventResponse) => {
+            return (
+              <CardEvent
+                key={event.id}
+                id={event.id}
+                title={event.title}
+                type={event.type}
+                start_time={event.start_time}
+                end_time={event.end_time}
+                description={event.description}
+                location={event.location}
+                recurring={event.recurring}
+                recurring_pattern={event.recurring_pattern}
+                primary_color={event.primary_color}
+                background_color={event.background_color}
+                meeting_url={event.meeting_url}
+                profile_client_url={event.profile_client_url}
+                profile_client_image={event.profile_client_image}
+              />
+            );
+          })
+        : null}
     </div>
   );
 }

@@ -24,6 +24,15 @@ export const getTotalEventAPI = createAsyncThunk(
   }
 )
 
+export const deleteEventAPI = createAsyncThunk(
+  'event/deleteEventAPI',
+  async (id: string) => {
+    // call api
+    const request = await EventService.deleteEvent(id);
+    return request as any;
+  }
+)
+
 
 export const eventSlice = createSlice({
   name: 'event',
@@ -49,6 +58,13 @@ export const eventSlice = createSlice({
 
       state.upcomingEvents = state.totalUpcomingEvents[getDate(date) - 1]
     })
+
+    // builder.addCase(deleteEventAPI.fulfilled, (state: EventState) => {
+
+    //   state.totalUpcomingEvents = totalUpcomingEvents
+
+    //   state.upcomingEvents = state.totalUpcomingEvents[getDate(date) - 1]
+    // })
   }
 })
 // Phương: 
