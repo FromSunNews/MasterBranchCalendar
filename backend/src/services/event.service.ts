@@ -41,8 +41,6 @@ const getTotalUpcomingEvent = async (data: EventRequest) => {
             return true;
           } else if (event.recurring_pattern === "WEEKLY") {
             // every week will be a recurring this event so we check number of days in week
-            console.log("🚀 ~ filterDate ~ dayItem:", dayItem)
-            console.log("🚀 ~ filterDate ~ day:", day)
             if (day === dayItem) return true;
             else return false;
           } else if (event.recurring_pattern === "MONTHLY") {
@@ -67,7 +65,6 @@ const getTotalUpcomingEvent = async (data: EventRequest) => {
 
       totalUpcomingEvents.push(filterDate)
     });
-    console.log("🚀 ~ getTotalUpcomingEvent ~ totalUpcomingEvents:", totalUpcomingEvents)
     return handleResultAPI(true, "", totalUpcomingEvents);
   } catch (error) {
     if (error instanceof Error) {

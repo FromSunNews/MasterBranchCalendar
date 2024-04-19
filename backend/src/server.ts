@@ -22,7 +22,7 @@ const port = env.APP_PORT || 7500;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/v1', apiV1);
+app.use('/v1', cors(), apiV1);
 
 app.listen(port, async () => {
   console.log(`Server is Fire at http://localhost:${port}`);
