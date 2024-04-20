@@ -115,7 +115,7 @@ function ModalCreate() {
 
       <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
         <div className="flex min-h-full justify-center p-4 text-center items-center sm:p-0">
-          <div className="relative transform rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+          <div className="relative transform rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 w-full sm:w-4/6 lg:w-3/6">
             <div className="flex items-center justify-between p-4 md:p-3 border-b rounded-t">
               <h3 className="ms-2 text-lg font-semibold text-gray-700">
                 Create New Event
