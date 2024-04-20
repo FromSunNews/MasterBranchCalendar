@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
-import { EventRequest } from '../../api/common/request/event.request';
+import { CreateEventRequest, EventRequest } from '../../api/common/request/event.request';
 import { EventState } from '../interfaces/event_state.interface';
 import { AppGlobalState } from '../interfaces/app_global_state.interface';
 import EventService from '../../api/event/event.api';
@@ -21,6 +21,24 @@ export const getTotalEventAPI = createAsyncThunk(
       totalUpcomingEvents: request,
       date: data.date
     } as any;
+  }
+)
+
+export const createEventAPI = createAsyncThunk(
+  'event/createEventAPI',
+  async (data: CreateEventRequest) => {
+    // call api
+    const request = await EventService.createEvent(data);
+    return request as any;
+  }
+)
+
+export const deleteEventAPI = createAsyncThunk(
+  'event/deleteEventAPI',
+  async (id: string) => {
+    // call api
+    const request = await EventService.deleteEvent(id);
+    return request as any;
   }
 )
 

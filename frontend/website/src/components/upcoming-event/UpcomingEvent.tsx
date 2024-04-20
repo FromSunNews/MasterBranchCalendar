@@ -7,7 +7,10 @@ import {
 } from "../../redux/event/event_slice";
 import { EventResponse } from "../../api/common/response/event.response";
 import CardEvent from "../card-event/CardEvent";
-import { selectCurrentDate } from "../../redux/global/global_slice";
+import {
+  selectCurrentDate,
+  updateCurrentShowModal,
+} from "../../redux/global/global_slice";
 
 function UpcomingEvent() {
   const upcomingEvents = useSelector(selectUpcomingEvents);
@@ -34,32 +37,45 @@ function UpcomingEvent() {
           <button className="h-8 w-20 bg-blue-600 hover:bg-blue-700 rounded-2xl">
             View All
           </button>
-          <button className="h-8 w-20 mt-1 bg-blue-600 hover:bg-blue-700 rounded-2xl">
+          <button
+            onClick={() =>
+              dispatch(
+                updateCurrentShowModal({
+                  typeModal: "CREATE",
+                  id: null,
+                }) as any
+              )
+            }
+            className="h-8 w-20 mt-1 bg-blue-600 hover:bg-blue-700 rounded-2xl"
+          >
             Create
           </button>
         </div>
       </div>
 
-      {upcomingEvents.map((event: EventResponse) => {
-        return (
-          <CardEvent
-            key={event.id}
-            title={event.title}
-            type={event.type}
-            start_time={event.start_time}
-            end_time={event.end_time}
-            description={event.description}
-            location={event.location}
-            recurring={event.recurring}
-            recurring_pattern={event.recurring_pattern}
-            primary_color={event.primary_color}
-            background_color={event.background_color}
-            meeting_url={event.meeting_url}
-            profile_client_url={event.profile_client_url}
-            profile_client_image={event.profile_client_image}
-          />
-        );
-      })}
+      {upcomingEvents?.length
+        ? upcomingEvents.map((event: EventResponse) => {
+            return (
+              <CardEvent
+                key={event.id}
+                id={event.id}
+                title={event.title}
+                type={event.type}
+                start_time={event.start_time}
+                end_time={event.end_time}
+                description={event.description}
+                location={event.location}
+                recurring={event.recurring}
+                recurring_pattern={event.recurring_pattern}
+                primary_color={event.primary_color}
+                background_color={event.background_color}
+                meeting_url={event.meeting_url}
+                profile_client_url={event.profile_client_url}
+                profile_client_image={event.profile_client_image}
+              />
+            );
+          })
+        : null}
     </div>
   );
 }

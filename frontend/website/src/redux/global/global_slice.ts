@@ -7,6 +7,8 @@ import { GlobalState } from '../interfaces/global_state.interface'
 const initialState: GlobalState = {
   current_date_selected: new Date(),
   number_day_in_month_selected: getMonth(new Date()),
+  showModalType: null,
+  idToDelete: null,
 }
 
 
@@ -28,6 +30,14 @@ export const globalSlice = createSlice({
       const globalState = action.payload
       state.current_date_selected = globalState.current_date_selected
       state.number_day_in_month_selected = globalState.number_day_in_month_selected
+    },
+
+    updateCurrentShowModal: (state: GlobalState, action: PayloadAction<any>) => {
+      const { typeModal, id } = action.payload
+      console.log("🚀 ~ id:", id)
+      console.log("🚀 ~ typeModal:", typeModal)
+      state.showModalType = typeModal
+      state.idToDelete = id
     }
   }
 })
@@ -35,7 +45,8 @@ export const globalSlice = createSlice({
 export const {
   updateCurrentDate,
   updateNumberDaySelected,
-  updateCurrentGlobalState
+  updateCurrentGlobalState,
+  updateCurrentShowModal
 } = globalSlice.actions
 
 
@@ -45,6 +56,14 @@ export const selectCurrentDate = (state: AppGlobalState) => {
 
 export const selectCurrentNumberDay = (state: AppGlobalState) => {
   return state.global.number_day_in_month_selected
+}
+
+export const selectCurrentShowModalType = (state: AppGlobalState) => {
+  return state.global.showModalType
+}
+
+export const selectCurrentIdToDelete = (state: AppGlobalState) => {
+  return state.global.idToDelete
 }
 
 export const globalReducer = globalSlice.reducer

@@ -1,8 +1,11 @@
 import { format } from "date-fns";
 import React from "react";
-import Avatar from "../../assets/images/avatar.jpg";
+import Avatar from "../../assets/images/client1.jpg";
+import { useDispatch } from "react-redux";
+import { updateCurrentShowModal } from "../../redux/global/global_slice";
 
 interface CardEventProps {
+  id: string;
   title: string;
   type: "BOOKING_CLIENT" | "WEBINAR_EVENT";
   start_time: string;
@@ -19,6 +22,7 @@ interface CardEventProps {
 }
 
 const CardEvent: React.FC<CardEventProps> = ({
+  id,
   title,
   type,
   start_time,
@@ -31,20 +35,24 @@ const CardEvent: React.FC<CardEventProps> = ({
   meeting_url,
   profile_client_url,
 }) => {
+  const dispatch = useDispatch();
+
   const dateFormatStart = format(new Date(start_time), "hh:mm a");
   const dateFormatEnd = format(new Date(end_time), "hh:mm a");
   const dateFormatGMT = format(new Date(start_time), "OOO");
 
   return (
     <div
-      className={"p-2 border rounded-lg border-l-[7px] py-3 mt-4 shadow-md"}
+      className={
+        "p-2 border rounded-lg border-l-[7px] py-3 mt-4 shadow-md relative"
+      }
       style={{
         borderLeftColor: primary_color,
       }}
     >
       <div className="flex flex-col ps-1">
         <div className="flex flex-row content-center justify-between">
-          <div className="flex flex-col ">
+          <div className="flex flex-col">
             <div
               className="text-[14px] py-1 cursor-pointer underline"
               onClick={() => window.open(meeting_url, "_blank")}
@@ -80,16 +88,33 @@ const CardEvent: React.FC<CardEventProps> = ({
               </div>
             )}
           </div>
-          {type === "BOOKING_CLIENT" && (
+          <div className="flex flex-col items-center">
+            {type === "BOOKING_CLIENT" && (
+              <button
+                onClick={() => window.open(meeting_url, "_blank")}
+                className="flex content-center justify-center h-[40px] w-[40px] mb-1 bg-blue-600 hover:bg-blue-700 rounded-full"
+              >
+                <span className="material-icons-outlined text-white mt-[7px]">
+                  videocam
+                </span>
+              </button>
+            )}
             <button
-              onClick={() => window.open(meeting_url, "_blank")}
-              className="flex content-center justify-center h-[40px] w-[40px] bg-blue-600 hover:bg-blue-700 rounded-full"
+              onClick={() =>
+                dispatch(
+                  updateCurrentShowModal({
+                    typeModal: "DELETE",
+                    id,
+                  }) as any
+                )
+              }
+              className="flex content-center justify-center h-[40px] w-[40px] bg-gray-300 hover:bg-red-500 rounded-full"
             >
               <span className="material-icons-outlined text-white mt-[7px]">
-                videocam
+                delete
               </span>
             </button>
-          )}
+          </div>
         </div>
       </div>
 
@@ -98,7 +123,7 @@ const CardEvent: React.FC<CardEventProps> = ({
           <img
             src={Avatar}
             alt=""
-            className="h-7 w-7 object-center rounded-full"
+            className="h-7 w-7 object-center rounded-full object-cover"
           />
           <a
             target="_blank"
