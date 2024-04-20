@@ -422,7 +422,7 @@ function ModalCreate() {
                     id="color"
                     className="w-full flex items-center justify-center bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 text-gray-700 font-normal text-sm rounded-lg p-2 focus-visible:outline-none"
                     type="button"
-                    onFocus={() => setShowColorPicker(true)}
+                    onClick={() => setShowColorPicker(true)}
                   >
                     <div
                       className="w-full h-6"
