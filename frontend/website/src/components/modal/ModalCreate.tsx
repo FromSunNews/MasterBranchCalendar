@@ -7,7 +7,6 @@ import clsx from "clsx";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectCurrentDate,
-  selectCurrentShowModalType,
   updateCurrentShowModal,
 } from "../../redux/global/global_slice";
 import { CreateEventRequest } from "../../api/common/request/event.request";
