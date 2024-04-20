@@ -1,3 +1,5 @@
+import { Dimensions } from "react-native";
+
 export const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 export const monthsOfYear = [
   "Jan",
@@ -13,3 +15,7 @@ export const monthsOfYear = [
   "Nov",
   "Dec"
 ];
+
+
+export const windowWidth = Dimensions.get('window').width;
+export const windowHeight = Dimensions.get('window').height;

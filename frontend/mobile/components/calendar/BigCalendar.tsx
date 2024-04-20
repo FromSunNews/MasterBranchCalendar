@@ -3,40 +3,49 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { add, format, getDate, getMonth, isThisMonth, sub } from "date-fns";
 import BaseCalendar from "./BaseCalendar";
 import { FontAwesome } from "@expo/vector-icons";
-import Colors from "@/constants/colors";
+import Colors from "@/assets/constants/colors";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectCurrentDate,
+  selectCurrentNumberDay,
+  updateCurrentGlobalState,
+} from "@/redux/global/global_slice";
+import {
+  getTotalEventAPI,
+  updateUpcomingEvent,
+} from "@/redux/event/event_slice";
 
 const BigCalendar = () => {
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedMonth, setSelectedMonth] = useState(getMonth(new Date()));
+  const currentDate = useSelector(selectCurrentDate);
+  const selectedMonth = useSelector(selectCurrentNumberDay);
+  const dispatch = useDispatch();
 
   const handleNavigateMonth = (typeNavigate: string) => {
+    let date;
     if (typeNavigate === "BEFORE") {
-      const previousMonthDate = sub(currentDate, { months: 1 });
-      setCurrentDate(previousMonthDate);
-      setSelectedMonth(getMonth(previousMonthDate));
+      date = sub(currentDate, { months: 1 });
     } else {
-      const nextMonthDate = add(currentDate, { months: 1 });
-      setCurrentDate(nextMonthDate);
-      setSelectedMonth(getMonth(nextMonthDate));
+      date = add(currentDate, { months: 1 });
     }
+
+    dispatch(
+      updateCurrentGlobalState({
+        current_date_selected: date,
+        number_day_in_month_selected: getMonth(date),
+      })
+    );
+    dispatch(getTotalEventAPI({ date }) as any);
   };
 
-  const handleToDayClick = () => {
-    setCurrentDate(new Date());
-    setSelectedMonth(getMonth(new Date()));
-  };
-
-  const handleSelectMonth = (value: number) => {
-    setSelectedMonth(value);
-    if (getMonth(currentDate) > value) {
-      setCurrentDate(
-        sub(currentDate, { months: Math.abs(getMonth(currentDate) - value) })
-      );
-    } else if (getMonth(currentDate) < value) {
-      setCurrentDate(
-        add(currentDate, { months: Math.abs(getMonth(currentDate) - value) })
-      );
-    }
+  const handleOnChange = async (date: Date) => {
+    console.log("🚀 ~ handleOnChange ~ date:", date);
+    dispatch(
+      updateCurrentGlobalState({
+        current_date_selected: date,
+        number_day_in_month_selected: getMonth(date),
+      })
+    );
+    dispatch(updateUpcomingEvent({ date }));
   };
 
   return (
@@ -44,7 +53,7 @@ const BigCalendar = () => {
       typeCalendar="BIG_VIEW"
       value={currentDate}
       dateNum={getDate(currentDate)}
-      onChange={setCurrentDate}
+      onChange={(date: Date) => handleOnChange(date)}
       header={
         <View style={styles.headerContainer}>
           <View style={styles.navigationContainer}>
@@ -93,26 +102,6 @@ const BigCalendar = () => {
         </View>
       }
       styleCell={styles.styleCell}
-      childrenCell={
-        <View
-          style={{
-            width: "100%",
-          }}
-        >
-          <View style={styles.eventView}>
-            <Text numberOfLines={1} style={styles.eventText}>
-              First 123 21324124
-            </Text>
-          </View>
-
-          <View style={styles.eventView}>
-            <Text numberOfLines={1} style={styles.eventText}>
-              First asd123
-            </Text>
-          </View>
-          <Text style={styles.moreText}>2 more</Text>
-        </View>
-      }
     />
   );
 };

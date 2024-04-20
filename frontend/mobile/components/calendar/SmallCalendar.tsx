@@ -1,28 +1,56 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
-import { add, format, getDate, sub } from "date-fns";
+import { add, format, getDate, getMonth, sub } from "date-fns";
 import BaseCalendar from "./BaseCalendar";
 import { FontAwesome } from "@expo/vector-icons";
-import Colors from "@/constants/colors";
+import Colors from "@/assets/constants/colors";
+import {
+  getTotalEventAPI,
+  updateUpcomingEvent,
+} from "@/redux/event/event_slice";
+import {
+  selectCurrentDate,
+  updateCurrentGlobalState,
+} from "@/redux/global/global_slice";
+import { useDispatch, useSelector } from "react-redux";
 
 const SmallCalendar = () => {
-  const [currentDate, setCurrentDate] = React.useState(new Date());
+  const currentDate = useSelector(selectCurrentDate);
+  const dispatch = useDispatch();
 
   const handleNavigateMonth = (typeNavigate: string) => {
+    let date;
     if (typeNavigate === "BEFORE") {
-      const previousMonthDate = sub(currentDate, { months: 1 });
-      setCurrentDate(previousMonthDate);
+      date = sub(currentDate, { months: 1 });
     } else {
-      const nextMonthDate = add(currentDate, { months: 1 });
-      setCurrentDate(nextMonthDate);
+      date = add(currentDate, { months: 1 });
     }
+
+    dispatch(
+      updateCurrentGlobalState({
+        current_date_selected: date,
+        number_day_in_month_selected: getMonth(date),
+      })
+    );
+    dispatch(getTotalEventAPI({ date }) as any);
+  };
+
+  const handleOnChange = async (date: Date) => {
+    console.log("🚀 ~ handleOnChange ~ date:", date);
+    dispatch(
+      updateCurrentGlobalState({
+        current_date_selected: date,
+        number_day_in_month_selected: getMonth(date),
+      })
+    );
+    dispatch(updateUpcomingEvent({ date }));
   };
 
   return (
     <BaseCalendar
       value={currentDate}
       dateNum={getDate(currentDate)}
-      onChange={setCurrentDate}
+      onChange={(date: Date) => handleOnChange(date)}
       header={
         <View style={styles.headerContainer}>
           <TouchableOpacity

@@ -1,6 +1,7 @@
 import {
   FlatList,
   Image,
+  Linking,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -20,7 +21,10 @@ import {
 
 import { daysOfWeek } from "@/assets/constants/variables";
 import React from "react";
-import Colors from "@/constants/colors";
+import Colors from "@/assets/constants/colors";
+import { selectTotalUpcomingEvents } from "@/redux/event/event_slice";
+import { useSelector } from "react-redux";
+import { EventResponse } from "@/api/common/response/event.response";
 
 interface BaseCalendarProps {
   value?: Date;
@@ -42,13 +46,13 @@ const BaseCalendar = ({
   styleCell,
   header,
   styleHeader,
-  childrenCell,
   typeCalendar,
 }: BaseCalendarProps) => {
   console.log("🚀 ~ dateNum:", dateNum);
   console.log("🚀 ~ styleHeader:", styleHeader);
 
   const [selectedDate, setSelectedDate] = React.useState(dateNum);
+  const totalUpcomingEvents = useSelector(selectTotalUpcomingEvents);
 
   React.useEffect(() => {
     setSelectedDate(dateNum);
@@ -116,8 +120,7 @@ const BaseCalendar = ({
         const date = index + 1;
         return (
           <View key={date} style={[styles.item, styleCell]}>
-            <TouchableOpacity
-              onPress={() => handleOnChange(date)}
+            <View
               style={{
                 width: "100%",
                 height: "100%",
@@ -126,7 +129,8 @@ const BaseCalendar = ({
                 paddingTop: 5,
               }}
             >
-              <View
+              <TouchableOpacity
+                onPress={() => handleOnChange(date)}
                 style={{
                   backgroundColor:
                     date === selectedDate ? Colors.light.blue : "transparent",
@@ -135,7 +139,7 @@ const BaseCalendar = ({
                   height: 32,
                   justifyContent: "center",
                   alignItems: "center",
-                  marginBottom: typeCalendar === "BIG_VIEW" ? 6 : 0,
+                  marginBottom: 0,
                 }}
               >
                 <Text
@@ -145,9 +149,50 @@ const BaseCalendar = ({
                 >
                   {date}
                 </Text>
-              </View>
-              {childrenCell}
-            </TouchableOpacity>
+              </TouchableOpacity>
+              {/* {childrenCell} */}
+              {typeCalendar === "BIG_VIEW" &&
+                totalUpcomingEvents[index] &&
+                totalUpcomingEvents[index].map(
+                  (event: EventResponse, small_index: number) => {
+                    if (small_index <= 3) {
+                      return (
+                        <TouchableOpacity
+                          key={small_index}
+                          onPress={() =>
+                            event.meeting_url &&
+                            Linking.openURL(event.meeting_url)
+                          }
+                          style={[
+                            styles.eventContainer,
+                            {
+                              borderLeftColor: event.primary_color,
+                              backgroundColor: event.background_color,
+                            },
+                          ]}
+                        >
+                          <Text numberOfLines={1} style={styles.eventText}>
+                            {event.title}
+                          </Text>
+                        </TouchableOpacity>
+                      );
+                    } else if (small_index === 4) {
+                      return (
+                        <TouchableOpacity
+                          key={small_index}
+                          style={styles.viewMoreContainer}
+                        >
+                          <Text style={styles.viewMoreText}>
+                            {`${totalUpcomingEvents[index].length - 2} more`}
+                          </Text>
+                        </TouchableOpacity>
+                      );
+                    } else {
+                      return null;
+                    }
+                  }
+                )}
+            </View>
           </View>
         );
       })}
@@ -187,6 +232,30 @@ const styles = StyleSheet.create({
     // borderColor: "gray",
     alignItems: "center",
     justifyContent: "center",
+  },
+  eventContainer: {
+    borderLeftWidth: 2,
+    // width: "100%",
+    borderTopLeftRadius: 2,
+    borderBottomLeftRadius: 1,
+    marginHorizontal: 2,
+    alignSelf: "stretch",
+    marginTop: 4,
+  },
+  eventText: {
+    fontSize: 10,
+    color: Colors.light.text,
+    marginLeft: 1,
+    paddingVertical: 2,
+  },
+  viewMoreContainer: {
+    marginTop: 2,
+    paddingVertical: 2,
+  },
+  viewMoreText: {
+    fontSize: 10,
+    fontWeight: "bold",
+    color: Colors.light.blue_light,
   },
 });
 

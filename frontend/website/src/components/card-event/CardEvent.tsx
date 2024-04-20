@@ -1,6 +1,5 @@
 import { format } from "date-fns";
 import React from "react";
-import Avatar from "../../assets/images/client1.jpg";
 import { useDispatch } from "react-redux";
 import { updateCurrentShowModal } from "../../redux/global/global_slice";
 
@@ -34,6 +33,7 @@ const CardEvent: React.FC<CardEventProps> = ({
   primary_color,
   meeting_url,
   profile_client_url,
+  profile_client_image,
 }) => {
   const dispatch = useDispatch();
 
@@ -121,7 +121,7 @@ const CardEvent: React.FC<CardEventProps> = ({
       {type === "BOOKING_CLIENT" && (
         <div className="flex flex-row content-center mt-1">
           <img
-            src={Avatar}
+            src={profile_client_image}
             alt=""
             className="h-7 w-7 object-center rounded-full object-cover"
           />

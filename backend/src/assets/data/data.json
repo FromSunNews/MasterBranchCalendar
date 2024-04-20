@@ -15,7 +15,7 @@
     "primary_color": "#29cce5",
     "meeting_url": "https://example.com/meeting",
     "profile_client_url": "https://example.com/profile/clientA",
-    "profile_client_image": "https://example.com/assets/images/clients/avatar1.jpg"
+    "profile_client_image": "https://photocross.net/wp-content/uploads/2020/03/bo-cuc-chup-anh-chan-dung.jpg"
   },
   {
     "id": "1",
@@ -33,7 +33,7 @@
     "primary_color": "#b7ddb0",
     "meeting_url": "https://example.com/meeting",
     "profile_client_url": "https://example.com/profile/clientA",
-    "profile_client_image": "https://example.com/assets/images/clients/avatar1.jpg"
+    "profile_client_image": "https://thanhnien.mediacdn.vn/Uploaded/ngocthanh/2016_03_23/9x01_YGEO.jpg"
   },
   {
     "id": "2",
@@ -68,7 +68,7 @@
     "primary_color": "#fad29c",
     "meeting_url": "https://example.com/lunch-meeting",
     "profile_client_url": "https://example.com/profile/clientB",
-    "profile_client_image": "https://example.com/assets/images/clients/avatar2.jpg"
+    "profile_client_image": "https://camerabox.vn/uploads/news/2018_06/den-gan-chu-the.jpg"
   },
   {
     "id": "4",
@@ -103,7 +103,7 @@
     "primary_color": "#dfc0eb",
     "meeting_url": "https://example.com/project-discussion",
     "profile_client_url": "https://example.com/profile/clientC",
-    "profile_client_image": "https://example.com/assets/images/clients/avatar3.jpg"
+    "profile_client_image": "https://anhvienpiano.com/wp-content/uploads/2019/10/chup-anh.jpg"
   },
   {
     "id": "6",
@@ -121,7 +121,7 @@
     "primary_color": "#7bc86c",
     "meeting_url": "https://example.com/team-meeting",
     "profile_client_url": "https://example.com/profile/clientD",
-    "profile_client_image": "https://example.com/assets/images/clients/avatar4.jpg"
+    "profile_client_image": "https://studiochupanhdep.com/Upload/Images/Album/chan-dung-beauty-03.jpg"
   },
   {
     "id": "7",
@@ -156,7 +156,7 @@
     "primary_color": "#ffaf3f",
     "meeting_url": "https://example.com/project-kickoff",
     "profile_client_url": "https://example.com/profile/clientE",
-    "profile_client_image": "https://example.com/assets/images/clients/avatar5.jpg"
+    "profile_client_image": "https://photocross.net/wp-content/uploads/2020/03/bo-cuc-chup-anh-chan-dung.jpg"
   },
   {
     "id": "9",
@@ -191,7 +191,7 @@
     "primary_color": "#cd8de5",
     "meeting_url": "https://example.com/budget-discussion",
     "profile_client_url": "https://example.com/profile/clientF",
-    "profile_client_image": "https://example.com/assets/images/clients/avatar6.jpg"
+    "profile_client_image": "https://thanhnien.mediacdn.vn/Uploaded/ngocthanh/2016_03_23/9x01_YGEO.jpg"
   },
   {
     "id": "11",
@@ -209,7 +209,7 @@
     "primary_color": "#5aac44",
     "meeting_url": "https://example.com/strategy-meeting",
     "profile_client_url": "https://example.com/profile/clientG",
-    "profile_client_image": "https://example.com/assets/images/clients/avatar7.jpg"
+    "profile_client_image": "https://camerabox.vn/uploads/news/2018_06/den-gan-chu-the.jpg"
   },
   {
     "id": "12",
@@ -227,7 +227,7 @@
     "primary_color": "#e6c60d",
     "meeting_url": "https://example.com/product-demo",
     "profile_client_url": "https://example.com/profile/clientH",
-    "profile_client_image": "https://example.com/assets/images/clients/avatar8.jpg"
+    "profile_client_image": "https://anhvienpiano.com/wp-content/uploads/2019/10/chup-anh.jpg"
   },
   {
     "id": "13",
@@ -245,7 +245,7 @@
     "primary_color": "#e79217",
     "meeting_url": "https://example.com/conference-call",
     "profile_client_url": "https://example.com/profile/clientI",
-    "profile_client_image": "https://example.com/assets/images/clients/avatar9.jpg"
+    "profile_client_image": "https://studiochupanhdep.com/Upload/Images/Album/chan-dung-beauty-03.jpg"
   },
   {
     "id": "14",
@@ -263,7 +263,7 @@
     "primary_color": "#cf513d",
     "meeting_url": "https://example.com/marketing-presentation",
     "profile_client_url": "https://example.com/profile/clientJ",
-    "profile_client_image": "https://example.com/assets/images/clients/avatar10.jpg"
+    "profile_client_image": "https://photocross.net/wp-content/uploads/2020/03/bo-cuc-chup-anh-chan-dung.jpg"
   },
   {
     "id": "15",
@@ -281,7 +281,7 @@
     "primary_color": "#a86cc1",
     "meeting_url": "https://example.com/team-building",
     "profile_client_url": "https://example.com/profile/clientK",
-    "profile_client_image": "https://example.com/assets/images/clients/avatar11.jpg"
+    "profile_client_image": "https://thanhnien.mediacdn.vn/Uploaded/ngocthanh/2016_03_23/9x01_YGEO.jpg"
   },
   {
     "id": "16",
@@ -316,7 +316,7 @@
     "primary_color": "#8fdfeb",
     "meeting_url": "https://example.com/project-review",
     "profile_client_url": "https://example.com/profile/clientL",
-    "profile_client_image": "https://example.com/assets/images/clients/avatar12.jpg"
+    "profile_client_image": "https://camerabox.vn/uploads/news/2018_06/den-gan-chu-the.jpg"
   },
   {
     "id": "18",
@@ -334,7 +334,7 @@
     "primary_color": "#b3f1d0",
     "meeting_url": "https://example.com/brainstorming-session",
     "profile_client_url": "https://example.com/profile/clientM",
-    "profile_client_image": "https://example.com/assets/images/clients/avatar13.jpg"
+    "profile_client_image": "https://anhvienpiano.com/wp-content/uploads/2019/10/chup-anh.jpg"
   },
   {
     "id": "19",
@@ -352,7 +352,7 @@
     "primary_color": "#f9c2e4",
     "meeting_url": "https://example.com/client-presentation",
     "profile_client_url": "https://example.com/profile/clientN",
-    "profile_client_image": "https://example.com/assets/images/clients/avatar14.jpg"
+    "profile_client_image": "https://studiochupanhdep.com/Upload/Images/Album/chan-dung-beauty-03.jpg"
   },
   {
     "id": "20",
@@ -370,6 +370,6 @@
     "primary_color": "#505f79",
     "meeting_url": "https://example.com/project-closure",
     "profile_client_url": "https://example.com/profile/clientO",
-    "profile_client_image": "https://example.com/assets/images/clients/avatar15.jpg"
+    "profile_client_image": "https://photocross.net/wp-content/uploads/2020/03/bo-cuc-chup-anh-chan-dung.jpg"
   }
 ]
