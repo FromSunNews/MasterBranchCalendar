@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import React from "react";
-import Avatar from "../../assets/images/avatar.jpg";
+import Avatar from "../../assets/images/client1.jpg";
 import { useDispatch } from "react-redux";
 import { updateCurrentShowModal } from "../../redux/global/global_slice";
 
@@ -123,7 +123,7 @@ const CardEvent: React.FC<CardEventProps> = ({
           <img
             src={Avatar}
             alt=""
-            className="h-7 w-7 object-center rounded-full"
+            className="h-7 w-7 object-center rounded-full object-cover"
           />
           <a
             target="_blank"

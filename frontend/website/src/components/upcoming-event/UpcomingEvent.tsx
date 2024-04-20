@@ -7,7 +7,10 @@ import {
 } from "../../redux/event/event_slice";
 import { EventResponse } from "../../api/common/response/event.response";
 import CardEvent from "../card-event/CardEvent";
-import { selectCurrentDate } from "../../redux/global/global_slice";
+import {
+  selectCurrentDate,
+  updateCurrentShowModal,
+} from "../../redux/global/global_slice";
 
 function UpcomingEvent() {
   const upcomingEvents = useSelector(selectUpcomingEvents);
@@ -34,7 +37,17 @@ function UpcomingEvent() {
           <button className="h-8 w-20 bg-blue-600 hover:bg-blue-700 rounded-2xl">
             View All
           </button>
-          <button className="h-8 w-20 mt-1 bg-blue-600 hover:bg-blue-700 rounded-2xl">
+          <button
+            onClick={() =>
+              dispatch(
+                updateCurrentShowModal({
+                  typeModal: "CREATE",
+                  id: null,
+                }) as any
+              )
+            }
+            className="h-8 w-20 mt-1 bg-blue-600 hover:bg-blue-700 rounded-2xl"
+          >
             Create
           </button>
         </div>

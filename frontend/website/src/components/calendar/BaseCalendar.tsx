@@ -126,7 +126,7 @@ const BaseCalendar: React.FC<BaseCalendarProps> = ({
                             {event.title}
                           </div>
                         );
-                      else
+                      else if (small_index == 2)
                         return (
                           <div className="truncate z-10 cursor-pointer text-left text-blue-600 hover:text-blue-700 font-semibold underline text-[10px] mt-[-4px] ms-1">
                             {"View " +
